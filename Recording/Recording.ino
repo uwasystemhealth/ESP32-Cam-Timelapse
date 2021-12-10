@@ -1,6 +1,7 @@
 #include "esp_camera.h"
 #include "esp_timer.h"
 #include "img_converters.h"
+//#include "Arduino.h"
 #include "fb_gfx.h"
 //#include "fd_forward.h"
 //#include "fr_forward.h"
@@ -11,7 +12,7 @@
 //#include "dl_lib.h"
 #include "driver/rtc_io.h"
 
-#define PICTURE_DELAY  3        /* Delay for picture taking (in seconds) */
+#define PICTURE_DELAY  10        /* Delay for picture taking (in seconds) */
 #define STARTUP_DELAY 3            /* Optional Time ESP32 will sleep on first boot in seconds. Max delay is 584942 years before it overflows, so it wont be an issue soon*/
 #define uS_TO_S_FACTOR 1000000  /* Conversion factor for micro seconds to seconds */
 
@@ -89,14 +90,14 @@ void setup() {
   config.pixel_format = PIXFORMAT_JPEG; 
 
   //**Camera Effects**
-  sensor_t * s = esp_camera_sensor_get();
+  //sensor_t * s = esp_camera_sensor_get();
   //s->set_quality(s, 10);
   //s->set_brightness(s, 0);
   //s->set_contrast(s, 0);
   //s->set_saturation(s, 1);
   //s->set_sharpness(s, 0);
   //s->set_wb_mode(s, 0);
-  s->set_awb_gain(s, 1);
+  //s->set_awb_gain(s, 1);
   //s->set_aec_value(s, 1);
   //s->set_aec2(s, 0);
   //s->set_ae_level(s, 0);
@@ -111,7 +112,7 @@ void setup() {
   //s->set_hmirror(s, 0); 
   //s->set_whitebal(s, 1);
   //s->set_dcw(s, 1);
-   
+  
   // Camera Quality assuming 3.8GB of usable space
   // FRAMESIZE_ + QVGA|CIF|VGA|SVGA|XGA|SXGA|UXGA
   // UXGA 1600x1200 ~200kb ~19000 pictures ~15h @ 3s |  ~10hr @ 2s |  ~5hr @ 1s
@@ -119,7 +120,7 @@ void setup() {
   // XGA  1280x768  ~100kb ~38000 pictures ~31h @ 3s |  ~20hr @ 2s | ~10hr @ 1s
   // SVGA  800x600   ~60kb ~63300 pictures ~52h @ 3s |  ~34hr @ 2s | ~17hr @ 1s
   // VGA   640x480   ~40kb ~95000 pictures ~79h @ 3s |  ~52hr @ 2s | ~26hr @ 1s
-  config.frame_size = FRAMESIZE_VGA; 
+  config.frame_size = FRAMESIZE_UXGA; 
   config.jpeg_quality = 10;
   config.fb_count = 2;
   
